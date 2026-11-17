@@ -1,0 +1,81 @@
+name: Release
+
+# npm: when main has a version not yet on npm, publish via trusted publishing (OIDC, no tokens). No bot commits.
+# PyPI: pushing a tag like `py-v0.1.0` builds and publishes via PyPI trusted publishing (OIDC, no tokens).
+
+on:
+  push:
+    branches: [main]
+    tags: ['py-v*']
+
+permissions:
+  contents: read
+
+jobs:
+  npm:
+    # Publishes when packages/js/package.json has a version that is not yet on npm.
+    # Versions are bumped locally by the maintainer (`npx changeset version`) so every commit on main is authored by a
+    # human — this workflow never commits, pushes or opens pull requests.
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest   # trusted publishing requires a GitHub-hosted runner
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write        # npm trusted publishing (OIDC) + provenance
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24      # >= 22.14 required by npm trusted publishing
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - name: Is there an unpublished version?
+        id: check
+        run: |
+          v=$(node -p "require('./packages/js/package.json').version")
+          if [ "$v" = "0.0.0" ] || npm view "solana-payments-webhooks@$v" version >/dev/null 2>&1; then
+            echo "Nothing to publish (version $v)"; echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Will publish $v"; echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.check.outputs.publish == 'true'
+        run: npm install -g npm@latest   # >= 11.5.1 required by npm trusted publishing
+      - if: steps.check.outputs.publish == 'true'
+        run: npm ci && npm run build && npm test
+      - if: steps.check.outputs.publish == 'true'
+        working-directory: packages/js
+        run: npm publish --access public
+
+  pypi-build:
+    if: startsWith(github.ref, 'refs/tags/py-v')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/python
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+      - name: Check tag matches pyproject version
+        run: |
+          v=$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          test "py-v$v" = "${GITHUB_REF_NAME}" || { echo "tag ${GITHUB_REF_NAME} != py-v$v"; exit 1; }
+      - run: pip install -e '.[dev]' build && pytest -q && python -m build
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: python-dist
+          path: packages/python/dist/
+
+  pypi-publish:
+    needs: pypi-build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write   # PyPI trusted publishing
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: python-dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # v1.14.3

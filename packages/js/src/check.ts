@@ -39,14 +39,14 @@ export async function checkPayment(expected: ExpectedPayment, opts: CheckOptions
 export interface WaitOptions extends CheckOptions {
   /** Poll interval in ms (default 2000). */
   intervalMs?: number;
-  /** Give up after this many ms (default 10 minutes). */
-  timeoutMs?: number;
+  /** Give up after this many ms in total (default 10 minutes). Per-request timeout is `timeoutMs`. */
+  maxWaitMs?: number;
   signal?: AbortSignal;
 }
 
 /** Polls checkPayment until the payment is confirmed, invalid, timed out or aborted. */
 export async function waitForPayment(expected: ExpectedPayment, opts: WaitOptions): Promise<CheckResult & { timedOut?: boolean }> {
-  const deadline = Date.now() + (opts.timeoutMs ?? 600_000);
+  const deadline = Date.now() + (opts.maxWaitMs ?? 600_000);
   for (;;) {
     if (opts.signal?.aborted) throw opts.signal.reason ?? new Error('aborted');
     const result = await checkPayment(expected, opts);
