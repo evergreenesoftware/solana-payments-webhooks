@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+.env
+.env.*
+__pycache__/
+*.egg-info/
+.venv/
+.playwright-mcp/
+
+docs/.vitepress/dist/
+docs/.vitepress/cache/

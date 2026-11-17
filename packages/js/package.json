@@ -1,0 +1,43 @@
+{
+  "name": "solana-payments-webhooks",
+  "version": "0.0.0",
+  "description": "Accept SOL and USDC on Solana without a payment processor: create Solana Pay requests, verify payments on chain, and send signed webhooks. Zero dependencies; Node, Bun, Deno, Workers and Next.js.",
+  "keywords": ["solana", "solana-pay", "usdc", "usdt", "stablecoin", "payments", "webhook", "webhooks", "checkout", "crypto-payments", "non-custodial", "hmac"],
+  "license": "MIT",
+  "author": "Popoola Sinaayo (Evergreene Software LTD)",
+  "type": "module",
+  "sideEffects": false,
+  "engines": { "node": ">=20" },
+  "files": ["dist", "README.md", "LICENSE"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsdown",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "check:package": "publint && attw --pack . --profile node16"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@solana/web3.js": "^1.98.0",
+    "@types/node": "^26.6.6",
+    "@vitest/coverage-v8": "^5.1.0",
+    "publint": "^0.3.25",
+    "tsdown": "^0.23.7",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+      "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" }
+    },
+    "./package.json": "./package.json"
+  },
+  "repository": { "type": "git", "url": "git+https://github.com/evergreenesoftware/solana-payments-webhooks.git", "directory": "packages/js" },
+  "homepage": "https://github.com/evergreenesoftware/solana-payments-webhooks#readme",
+  "bugs": { "url": "https://github.com/evergreenesoftware/solana-payments-webhooks/issues" }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "solana-payments-webhooks-monorepo",
+  "private": true,
+  "workspaces": ["packages/js"],
+  "scripts": {
+    "build": "npm run build -w solana-payments-webhooks",
+    "test": "npm run test -w solana-payments-webhooks",
+    "typecheck": "npm run typecheck -w solana-payments-webhooks",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "changeset": "changeset",
+    "version-packages": "changeset version"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.7",
+    "@changesets/cli": "^3.0.3"
+  }
+}
