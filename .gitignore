@@ -12,3 +12,7 @@ __pycache__/
 
 docs/.vitepress/dist/
 docs/.vitepress/cache/
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/

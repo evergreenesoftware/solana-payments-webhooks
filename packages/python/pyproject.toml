@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "solana-payments-webhooks"
+version = "0.0.0"
+description = "Accept SOL and USDC on Solana without a payment processor: create Solana Pay requests, verify payments on chain, and send or verify signed webhooks. Zero dependencies."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "Popoola Sinaayo (Evergreene Software LTD)" }]
+keywords = ["solana", "solana-pay", "usdc", "usdt", "stablecoin", "payments", "webhook", "non-custodial", "hmac"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Office/Business :: Financial",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "mypy>=1.10", "ruff>=0.6"]
+
+[project.urls]
+Homepage = "https://github.com/evergreenesoftware/solana-payments-webhooks"
+Issues = "https://github.com/evergreenesoftware/solana-payments-webhooks/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/solana_payments_webhooks"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S", "SIM"]
+ignore = ["S101", "E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S105", "S106"]
+
+[tool.mypy]
+strict = true
+packages = ["solana_payments_webhooks"]
+mypy_path = "src"

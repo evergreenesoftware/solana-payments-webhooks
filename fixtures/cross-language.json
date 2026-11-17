@@ -1,0 +1,80 @@
+{
+  "base58": [
+    {
+      "hex": "0000000000000000000000000000000000000000000000000000000000000000",
+      "base58": "11111111111111111111111111111111"
+    },
+    {
+      "hex": "00004f6e8daccbea0928476685a4c3e201203f5e7d9cbbdaf91837567594b3d2",
+      "base58": "11Gv8RZ9baPdppr5jHNGCcgcdiS5SAY3tGt9LG7PGyP"
+    },
+    {
+      "hex": "2241607f9ebddcfb1a39587796b5d4f31231506f8eadcceb0a29486786a5c4e3",
+      "base58": "3JigXKgoZbm1iSX6VRDbfCMmXSNrQqu7wvqU2PtqWv5Y"
+    },
+    {
+      "hex": "33527190afceed0c2b4a6988a7c6e504234261809fbeddfc1b3a597897b6d5f4",
+      "base58": "4TLhxSbyce2rZZhvbk12wNb7RzdHUs32SAuL7WikA7cw"
+    },
+    {
+      "hex": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "base58": "JEKNVnkbo3jma5nREBBJCDoXFVeKkD56V3xKrvRmWxFG"
+    }
+  ],
+  "amounts": [
+    {
+      "amount": "0",
+      "decimals": 6,
+      "baseUnits": "0",
+      "roundTrip": "0"
+    },
+    {
+      "amount": "1",
+      "decimals": 6,
+      "baseUnits": "1000000",
+      "roundTrip": "1"
+    },
+    {
+      "amount": "10.5",
+      "decimals": 6,
+      "baseUnits": "10500000",
+      "roundTrip": "10.5"
+    },
+    {
+      "amount": "0.000001",
+      "decimals": 6,
+      "baseUnits": "1",
+      "roundTrip": "0.000001"
+    },
+    {
+      "amount": "123456789.123456",
+      "decimals": 6,
+      "baseUnits": "123456789123456",
+      "roundTrip": "123456789.123456"
+    },
+    {
+      "amount": "1",
+      "decimals": 9,
+      "baseUnits": "1000000000",
+      "roundTrip": "1"
+    },
+    {
+      "amount": "0.1",
+      "decimals": 9,
+      "baseUnits": "100000000",
+      "roundTrip": "0.1"
+    },
+    {
+      "amount": "0.000000001",
+      "decimals": 9,
+      "baseUnits": "1",
+      "roundTrip": "0.000000001"
+    }
+  ],
+  "webhook": {
+    "secret": "whsec_cross_language_test",
+    "timestamp": 1800000000,
+    "body": "{\"id\":\"4Nd1mYwSx1Xn8iZr6xGq3a3P9hQ7mJk2cYb5uT8wE1rL9vF6sD2gH7jK3nM5pQ8rS1tU4vW6xY9zA2bC5dE7fG\",\"type\":\"payment.confirmed\",\"createdAt\":\"2027-01-15T10:00:00.000Z\",\"commitment\":\"confirmed\",\"data\":{\"signature\":\"4Nd1mYwSx1Xn8iZr6xGq3a3P9hQ7mJk2cYb5uT8wE1rL9vF6sD2gH7jK3nM5pQ8rS1tU4vW6xY9zA2bC5dE7fG\",\"reference\":\"5bxjPZX9fi5hw6xZ1pYetFi5ahChvwhug7VC4sQqitcc\",\"recipient\":\"6kakpgSKawUF4RSo4k5Bzey5Jdxs1RPy7LKk2Lc98e1j\",\"payer\":\"7uCnFoLu3EQZfcni72eLCNV8DzGBQ5jKdw3J3qJGgfYa\",\"token\":\"USDC\",\"mint\":\"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\",\"amount\":\"25.5\",\"amountBaseUnits\":\"25500000\",\"decimals\":6,\"memo\":\"order-42\",\"slot\":312345678,\"blockTime\":1800000000}}",
+    "header": "t=1800000000,v1=14dbeefbdc04e5912cdec5be990c4a68320e9bfa20b97619ad084d1e8edf3f97"
+  }
+}
