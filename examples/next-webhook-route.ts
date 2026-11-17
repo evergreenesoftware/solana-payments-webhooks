@@ -1,11 +1,11 @@
 // Next.js App Router: app/api/webhooks/solana/route.ts
-import { SIGNATURE_HEADER, verifyWebhook } from 'solana-payments-webhooks';
+import { type PaymentEvent, SIGNATURE_HEADER, verifyWebhook } from 'solana-payments-webhooks';
 
 const processed = new Set<string>(); // use a unique index in your database
 
 export async function POST(req: Request) {
   const raw = await req.text();
-  let event;
+  let event: PaymentEvent;
   try {
     event = await verifyWebhook(raw, req.headers.get(SIGNATURE_HEADER), process.env.WEBHOOK_SECRET!);
   } catch {
