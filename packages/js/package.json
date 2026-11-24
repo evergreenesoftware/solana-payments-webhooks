@@ -41,9 +41,9 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
     "@solana/spl-token": "^0.4.15",
-    "@solana/web3.js": "^1.98.0",
+    "@solana/web3.js": "^3.2.1",
     "@types/node": "^26.6.6",
-    "@vitest/coverage-v8": "^5.1.0",
+    "@vitest/coverage-v8": "^5.1.1",
     "publint": "^0.3.25",
     "tsdown": "^0.23.7",
     "typescript": "^7.0.2",
